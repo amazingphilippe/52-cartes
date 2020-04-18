@@ -1,6 +1,7 @@
 // src/server.js
-const Server = require("boardgame.io/server").Server;
-const Huit = require("./games/huit/game").Huit;
+import { Server } from "boardgame.io/server";
+import { Huit } from "./games/huit/game";
+
 const server = Server({ games: [Huit] });
 
 const port = process.env.PORT || 8000;
