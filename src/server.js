@@ -1,6 +1,6 @@
 // src/server.js
 import { Server } from "boardgame.io/server";
-import { Huit } from "./games/huit/game";
+import { Huit } from "./games/Huit";
 
 const server = Server({ games: [Huit] });
 
