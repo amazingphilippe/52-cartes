@@ -1,7 +1,6 @@
 import React from "react";
 import { Client } from "boardgame.io/react";
-import { Huit } from "./games/huit/game";
-import { HuitBoard } from "./games/huit/board";
+import { Huit, HuitBoard } from "./games/Huit";
 import { SocketIO } from "boardgame.io/multiplayer";
 import { Lobby } from "boardgame.io/react";
 

@@ -4,8 +4,8 @@
   "main": "src/server.js",
   "private": true,
   "dependencies": {
-    "@babel/core": "^7.6.2",
     "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.6.2",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
@@ -15,6 +15,7 @@
     "@testing-library/user-event": "^7.1.2",
     "boardgame.io": "^0.39.7",
     "esm": "^3.2.25",
+    "node-sass": "^4.13.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"
