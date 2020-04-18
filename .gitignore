@@ -10,7 +10,8 @@
 
 # production
 /build
-
+.htaccess
+ 
 # misc
 .DS_Store
 .env.local
