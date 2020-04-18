@@ -1,11 +1,3 @@
-/*
- * Copyright 2017 The boardgame.io Authors.
- *
- * Use of this source code is governed by a MIT-style
- * license that can be found in the LICENSE file or at
- * https://opensource.org/licenses/MIT.
- */
-
 import React from "react";
 import PropTypes from "prop-types";
 
@@ -32,8 +24,6 @@ export class HuitBoard extends React.Component {
   }
 
   render() {
-    console.log(this.props.ctx);
-
     return (
       <div>
         <h1>{this.props.playerID}</h1>
