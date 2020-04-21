@@ -9,7 +9,7 @@ export const gameConfig = {
   [HuitName]: {
     game: Huit,
     board: HuitBoard,
-    maxPlayers: 4,
+    maxPlayers: 10,
     minPlayers: 2,
   },
 };

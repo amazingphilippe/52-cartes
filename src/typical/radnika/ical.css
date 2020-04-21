@@ -1,0 +1,40 @@
+@font-face {
+  font-family: "Radnika";
+  font-style: normal;
+  font-weight: 100;
+  src: url("type/Radnika-Light.woff2") format("woff2"),
+    url("type/Radnika-Light.woff") format("woff"),
+    url("type/Radnika-Light.eot") format("embedded-opentype");
+}
+@font-face {
+  font-family: "Radnika";
+  font-style: normal;
+  font-weight: normal;
+  src: url("type/Radnika-Regular.woff2") format("woff2"),
+    url("type/Radnika-Regular.woff") format("woff"),
+    url("type/Radnika-Regular.eot") format("embedded-opentype");
+}
+@font-face {
+  font-family: "Radnika";
+  font-style: normal;
+  font-weight: 500;
+  src: url("type/Radnika-Medium.woff2") format("woff2"),
+    url("type/Radnika-Medium.woff") format("woff"),
+    url("type/Radnika-Medium.eot") format("embedded-opentype");
+}
+@font-face {
+  font-family: "Radnika";
+  font-style: normal;
+  font-weight: 600;
+  src: url("type/Radnika-SemiBold.woff2") format("woff2"),
+    url("type/Radnika-SemiBold.woff") format("woff"),
+    url("type/Radnika-SemiBold.eot") format("embedded-opentype");
+}
+@font-face {
+  font-family: "Radnika";
+  font-style: normal;
+  font-weight: bold;
+  src: url("type/Radnika-Bold.woff2") format("woff2"),
+    url("type/Radnika-Bold.woff") format("woff"),
+    url("type/Radnika-Bold.eot") format("embedded-opentype");
+}
