@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { IntlProvider } from "react-intl";
+import "./typical/radnika/ical.css";
 
 ReactDOM.render(
   <React.StrictMode>

@@ -8,15 +8,7 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  jsx,
-  Select,
-  Label,
-  Input,
-  Button,
-  Container,
-  Heading,
-} from "theme-ui";
+import { Select, Label, Input, Button, Heading } from "theme-ui";
 import Stack from "../components/Stack";
 
 class LobbyCreateRoomForm extends React.Component {
@@ -36,7 +28,7 @@ class LobbyCreateRoomForm extends React.Component {
     for (let game of props.games) {
       let game_details = game.game;
       if (!game_details.minPlayers) {
-        game_details.minPlayers = 1;
+        game_details.minPlayers = 2;
       }
       if (!game_details.maxPlayers) {
         game_details.maxPlayers = 16;

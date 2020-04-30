@@ -16,7 +16,7 @@ import { LobbyConnection } from "./connection";
 import LobbyLoginForm from "./login-form";
 import LobbyRoomInstance from "./room-instance";
 import LobbyCreateRoomForm from "./create-room-form";
-import { jsx, Container, Flex, Box, Grid, Heading, Button } from "theme-ui";
+import { Box, Grid, Heading, Button, Container, Text } from "theme-ui";
 import Stack from "../components/Stack";
 
 const LobbyPhases = {
@@ -191,7 +191,7 @@ class Lobby extends React.Component {
       }
     }
 
-    if (gameOpts.numPlayers == 1) {
+    if (gameOpts.numPlayers === 1) {
       const maxPlayers = gameCode.game.maxPlayers;
       let bots = {};
       for (let i = 1; i < maxPlayers; i++) {
@@ -226,10 +226,10 @@ class Lobby extends React.Component {
   };
 
   renderRooms = (rooms, playerName) => {
-    return rooms.map((room) => {
+    return rooms.map((room, key) => {
       const { gameID, gameName, players } = room;
       return (
-        <Box>
+        <Box key={key}>
           <LobbyRoomInstance
             key={"instance-" + gameID}
             room={{ gameID, gameName, players: Object.values(players) }}
@@ -267,65 +267,99 @@ class Lobby extends React.Component {
     }
 
     return (
-      <Grid gap={3} columns={[10]} sx={{ p: 3 }}>
-        <Heading as="h1" variant="h1" sx={{ gridColumn: "span 10" }}>
-          Lobby
-        </Heading>
-        <Stack
-          spacing={3}
-          sx={{ gridColumn: ["1 / span 10", "1 / span 4", "1 / span 3"] }}
+      <>
+        <Grid
+          gap={3}
+          columns={[10]}
+          sx={{ p: 3, ...(this.state.phase === "play" && { display: "none" }) }}
         >
-          <Box className={this._getPhaseVisibility(LobbyPhases.ENTER)}>
-            <LobbyLoginForm
-              key={playerName}
-              playerName={playerName}
-              onEnter={this._enterLobby}
-            />
-          </Box>
+          <Heading
+            as="h1"
+            variant="h1"
+            sx={{
+              gridColumn: "span 10",
+            }}
+          >
+            Lobby
+          </Heading>
+          <Stack
+            spacing={3}
+            sx={{
+              gridColumn: ["1 / span 10", "1 / span 4", "1 / span 3"],
+            }}
+          >
+            <Box>
+              <LobbyLoginForm
+                key={playerName}
+                playerName={playerName}
+                onEnter={this._enterLobby}
+              />
+            </Box>
 
-          <Box className={this._getPhaseVisibility(LobbyPhases.LIST)}>
-            <div>
+            <Box>
               <LobbyCreateRoomForm
                 games={gameComponents}
                 createGame={this._createRoom}
               />
-            </div>
-          </Box>
-        </Stack>
-        <Stack
-          className={this._getPhaseVisibility(LobbyPhases.LIST)}
-          sx={{ gridColumn: ["1 / span 10", "5 / span 6", "4 / span 7"] }}
-        >
-          <Heading variant="h2" className="phase-title">
-            Tables
-          </Heading>
-          <Stack spacing={3} id="instances">
-            {this.renderRooms(this.connection.rooms, playerName)}
-            <span className="error-msg">{errorMsg}</span>
+            </Box>
           </Stack>
-        </Stack>
-        {runningGame && (
           <Stack
-            sx={{ gridColumn: "span 10" }}
-            className={this._getPhaseVisibility(LobbyPhases.PLAY)}
+            sx={{
+              ...(this.state.phase !== "list" && { display: "none" }),
+              gridColumn: ["1 / span 10", "5 / span 6", "4 / span 7"],
+            }}
           >
-            <runningGame.app
-              gameID={runningGame.gameID}
-              playerID={runningGame.playerID}
-              credentials={runningGame.credentials}
-            />
-            <Button variant="danger" onClick={this._exitRoom}>
-              Quitter la partie
-            </Button>
+            <Heading variant="h2" className="phase-title">
+              Tables
+            </Heading>
+            <Stack spacing={3} id="instances">
+              {this.renderRooms(this.connection.rooms, playerName)}
+              <span className="error-msg">{errorMsg}</span>
+            </Stack>
           </Stack>
-        )}
 
-        <Box sx={{ gridColumn: "span 10" }} className="buttons" id="lobby-exit">
-          <Button variant="danger" onClick={this._exitLobby}>
-            Quitter le lobby
-          </Button>
-        </Box>
-      </Grid>
+          <Box
+            sx={{
+              gridColumn: "span 10",
+              ...(this.state.phase !== "play"
+                ? { visibility: "visible" }
+                : { visibility: "hidden" }),
+            }}
+            id="lobby-exit"
+          >
+            <Button variant="danger" onClick={this._exitLobby}>
+              Quitter le lobby
+            </Button>
+          </Box>
+        </Grid>
+        {runningGame && (
+          <Grid
+            gap={3}
+            columns={[10]}
+            sx={{
+              gridColumn: "span 10",
+              ...(this.state.phase !== "play" && { display: "none" }),
+            }}
+          >
+            <Container variant="menu" sx={{ gridColumn: "1 / span 10" }}>
+              <Button variant="danger" onClick={this._exitRoom}>
+                Quitter la partie
+              </Button>
+              <Text variant="button" sx={{ ml: "auto", color: "white" }}>
+                Bienvenue {playerName}!
+              </Text>
+            </Container>
+            <Box sx={{ gridColumn: "1 / span 10" }}>
+              <runningGame.app
+                gameID={runningGame.gameID}
+                playerID={runningGame.playerID}
+                playerName={playerName}
+                credentials={runningGame.credentials}
+              />
+            </Box>
+          </Grid>
+        )}
+      </>
     );
   }
 }

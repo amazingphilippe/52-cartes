@@ -1,5 +1,3 @@
-import { grid } from "styled-system";
-
 const buttons = {
   borderRadius: "none",
   fontFamily: "body",
@@ -8,11 +6,17 @@ const buttons = {
   height: 40,
   p: 0,
   px: 3,
+  outline: "none",
+  appearance: "none",
+  cursor: "pointer",
   "&::-moz-focus-inner": {
     border: "0px none !important",
   },
   "&:focus": {
     boxShadow: (theme) => theme.shadows.focus,
+  },
+  "&:active": {
+    boxShadow: (theme) => theme.shadows.inner,
   },
 };
 
@@ -25,7 +29,9 @@ const input = {
   px: 2,
   fontFamily: "body",
   fontSize: "text",
+  outline: "none",
   "&:focus": {
+    outline: "none",
     boxShadow: (theme) => theme.shadows.focus,
   },
 };
@@ -103,6 +109,7 @@ export default {
   },
   borders: {
     input: "2px solid",
+    "2px": "2px solid",
   },
   radii: {
     none: 0,
@@ -111,6 +118,11 @@ export default {
   shadows: {
     focus: (theme) => `0 0 0 4px ${theme.colors.focus}`,
     you: (theme) => `0 0 0 4px ${theme.colors.blue.main}`,
+    elevate: (theme) => `8px 6px 0 0 ${theme.colors.gray[100]}`,
+    inner: () => "inset 0 0 0 4px rgba(0,0,0,0.5)",
+  },
+  sizes: {
+    full: "100%",
   },
   text: {
     h1: {
@@ -135,9 +147,8 @@ export default {
       fontWeight: 600,
       color: "red.600",
     },
-    buttonSized: {
+    button: {
       ...buttons,
-      bg: "white",
       display: "flex",
       alignItems: "center",
     },
@@ -189,17 +200,49 @@ export default {
       ...buttons,
       color: "text",
       bg: "gray.200",
+      cursor: "unset",
+      "&:active": {
+        boxShadow: "none",
+      },
+    },
+    card: {
+      ...buttons,
+      color: "text",
+      bg: "gray.200",
+      border: "2px",
+      borderColor: "gray.400",
+      "&:hover": {
+        borderColor: "gray.800",
+      },
+    },
+    cardValue: {
+      ...buttons,
+      color: "text",
+      border: "2px",
+      borderColor: "gray.200",
+      bg: "white",
+      overflow: "hidden",
+      "&:focus": {
+        boxShadow: (theme) => theme.shadows.focus,
+        zIndex: 99,
+      },
     },
   },
   styles: {
     spinner: {
-      color: "yellow.main",
+      color: "primary.main",
     },
   },
   layout: {
     stack: {
       display: "flex",
       flexDirection: "column",
+    },
+    menu: {
+      display: "flex",
+      flexDirection: "row",
+      bg: "gray.900",
+      p: 3,
     },
   },
 };

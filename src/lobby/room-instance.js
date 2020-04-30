@@ -9,7 +9,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Stack from "../components/Stack";
-import { Heading, Flex, Text, Button, Spinner, Box } from "theme-ui";
+import { Heading, Text, Button, Box } from "theme-ui";
 import { readableName } from "../utils/readableName";
 import { FormattedPlural } from "react-intl";
 
@@ -26,26 +26,10 @@ class LobbyRoomInstance extends React.Component {
     onClickPlay: PropTypes.func.isRequired,
   };
 
-  _createSeat = (player) => {
-    return player.name ? (
-      <Text
-        variant="buttonSized"
-        sx={{
-          ...(this.props.playerName === player.name && {
-            boxShadow: (theme) => theme.shadows.you,
-          }),
-        }}
-      >
-        {player.name}
-      </Text>
-    ) : (
-      <Box sx={{ height: "40px", width: "40px", bg: "gray.200" }}></Box>
-    );
-  };
-
   _createButtonJoin = (inst, seatId) => (
     <Button
       variant="primary"
+      sx={{ mb: 3 }}
       key={"button-join-" + inst.gameID}
       onClick={() =>
         this.props.onClickJoin(inst.gameName, inst.gameID, "" + seatId)
@@ -58,6 +42,7 @@ class LobbyRoomInstance extends React.Component {
   _createButtonLeave = (inst) => (
     <Button
       variant="danger"
+      sx={{ mb: 3 }}
       key={"button-leave-" + inst.gameID}
       onClick={() => this.props.onClickLeave(inst.gameName, inst.gameID)}
     >
@@ -68,6 +53,7 @@ class LobbyRoomInstance extends React.Component {
   _createButtonPlay = (inst, seatId) => (
     <Button
       variant="go"
+      sx={{ mb: 3 }}
       key={"button-play-" + inst.gameID}
       onClick={() =>
         this.props.onClickPlay(inst.gameName, {
@@ -84,6 +70,7 @@ class LobbyRoomInstance extends React.Component {
   _createButtonSpectate = (inst) => (
     <Button
       variant="primary"
+      sx={{ mb: 3 }}
       key={"button-spectate-" + inst.gameID}
       onClick={() =>
         this.props.onClickPlay(inst.gameName, {
@@ -113,12 +100,14 @@ class LobbyRoomInstance extends React.Component {
     if (playerSeat) {
       return (
         <Stack direction="row" spacing={3}>
-          {[
-            this._createButtonPlay(inst, playerSeat.id),
-            this._createButtonLeave(inst),
-          ]}
+          {this._createButtonPlay(inst, playerSeat.id)}
+          {this._createButtonLeave(inst)}
         </Stack>
       );
+    }
+    // room is full
+    if (playerSeat) {
+      return;
     }
     // allow spectating
     return this._createButtonSpectate(inst);
@@ -126,10 +115,10 @@ class LobbyRoomInstance extends React.Component {
 
   render() {
     const room = this.props.room;
-    let status = "Ouvert";
-    if (!room.players.find((player) => !player.name)) {
-      status = "Partie en cours";
-    }
+    // let status = "Ouvert";
+    // if (!room.players.find((player) => !player.name)) {
+    //   status = "Partie en cours";
+    // }
     return (
       <Stack
         id={`table-${room.gameID}`}
@@ -160,11 +149,34 @@ class LobbyRoomInstance extends React.Component {
           </Text>
         </Stack>
         <Stack direction="row" spacing={3}>
-          <Stack direction="row" spacing={3}>
-            {room.players.map(this._createSeat)}
+          <Stack direction="row" spacing={3} sx={{ flexWrap: "wrap", mb: -3 }}>
+            {room.players.map((player, key) => {
+              return player.name ? (
+                <Text
+                  key={key}
+                  variant="button"
+                  sx={{
+                    bg: "white",
+                    mb: 3,
+                    "&:active": {
+                      boxShadow: "none",
+                    },
+                    ...(this.props.playerName === player.name && {
+                      boxShadow: (theme) => theme.shadows.you,
+                    }),
+                  }}
+                >
+                  {player.name}
+                </Text>
+              ) : (
+                <Box
+                  key={key}
+                  sx={{ height: "40px", width: "40px", bg: "gray.200", mb: 3 }}
+                ></Box>
+              );
+            })}
+            {this._createInstanceButtons(room)}
           </Stack>
-
-          {this._createInstanceButtons(room)}
         </Stack>
       </Stack>
     );

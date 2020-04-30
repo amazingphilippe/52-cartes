@@ -7,7 +7,7 @@
  */
 
 /** @jsx jsx */
-import { jsx, Button, Input, Label, Heading, Container, Text } from "theme-ui";
+import { jsx, Button, Input, Label, Heading, Text } from "theme-ui";
 
 import React from "react";
 import PropTypes from "prop-types";
@@ -57,9 +57,6 @@ class LobbyLoginForm extends React.Component {
             sx={{
               flexShrink: 0,
             }}
-            {...(this.state.playerName === this.props.playerName && {
-              variant: "disabled",
-            })}
             onClick={this.onClickEnter}
           >
             Appliquer
