@@ -40,6 +40,7 @@ export default {
   fonts: {
     body: "'Radnika', sans-serif",
     heading: "'Radnika', sans-serif",
+    murmure: "Le Murmure",
   },
   fontWeights: {
     body: "normal",
@@ -217,6 +218,9 @@ export default {
     },
     cardValue: {
       ...buttons,
+      display: "block",
+      pl: 0,
+      pr: 0,
       color: "text",
       border: "2px",
       borderColor: "gray.200",
@@ -225,6 +229,33 @@ export default {
       "&:focus": {
         boxShadow: (theme) => theme.shadows.focus,
         zIndex: 99,
+      },
+      "&:hover": {
+        borderColor: "gray.400",
+      },
+    },
+    action: {
+      ...buttons,
+      color: "text",
+      bg: "primary.main",
+      borderRadius: "full",
+      height: "auto",
+      "&:hover": {
+        bg: "primary.500",
+      },
+    },
+    change: {
+      ...buttons,
+      width: "51px",
+      height: "51px",
+      bg: "0",
+      pl: 2,
+      pr: 2,
+      "&:active": {
+        boxShadow: (theme) => `0 0 0 4px ${theme.colors.text}`,
+      },
+      "&:hover": {
+        boxShadow: (theme) => `0 0 0 4px ${theme.colors.gray[500]}`,
       },
     },
   },

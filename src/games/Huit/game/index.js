@@ -62,8 +62,27 @@ const ChangeSorte = (G, ctx, sorte) => {
   ctx.events.endTurn();
 };
 
+const UneCarte = (G, ctx, id) => {
+  const num = 2;
+  //takes num cards from end of deck
+  G.deck.length < num && Shuffle(G, ctx);
+
+  const card = G.deck.splice(-num);
+  console.log(G.players, id);
+
+  //G.players[id].hand = [...G.players[id].hand, ...card];
+  //updateHands(G, id);
+  return G;
+};
+
 const Reverse = (G, ctx) => {
-  ctx.playOrder.reverse();
+  //Reverse player array and intercept endTurn event
+  //const nextReverse = (ctx.playOrderPos + ctx.numPlayers - 1) % ctx.numPlayers;
+  //
+  //console.log("C: ", ctx.playOrder, "setting to: ", nextReverse);
+  //ctx.events.endTurn({ next: nextReverse });
+  //ctx.playOrder.reverse();
+  //console.log("E: ", ctx.playOrder, "setting to: ", nextReverse);
 };
 
 const Shuffle = (G, ctx) => {
@@ -77,7 +96,7 @@ const Shuffle = (G, ctx) => {
 const distributeCards = (G, ctx) => {
   let card;
   for (let i = 0; i < Object.entries(G.players).length; i++) {
-    card = G.deck.splice(-8);
+    card = G.deck.splice(-2);
     G.players[i].hand = [...card];
     updateHands(G, i);
   }
@@ -118,7 +137,7 @@ const actionCard = (G, ctx, card) => {
       break;
     case "0":
       G.action.reverse = !G.action.reverse;
-      Reverse(G, ctx);
+      //Reverse(G, ctx);
       break;
     case "J":
       G.action.skip = true;
@@ -162,7 +181,13 @@ export const Huit = {
   moves: { DrawCard, DrawHand },
 
   turn: {
-    order: TurnOrder.DEFAULT,
+    order: {
+      first: (G, ctx) => 0,
+      next: (G, ctx) =>
+        G.action.reverse
+          ? (ctx.playOrderPos + ctx.numPlayers - 1) % ctx.numPlayers
+          : (ctx.playOrderPos + 1) % ctx.numPlayers,
+    },
     onBegin: (G, ctx) => {
       G.players[ctx.currentPlayer].pickup = 1;
     },

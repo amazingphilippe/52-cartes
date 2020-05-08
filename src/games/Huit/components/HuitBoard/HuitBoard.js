@@ -2,10 +2,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { jsx, Text, Button, Container, Box } from "theme-ui";
-import { Card } from "../../../../components/Card";
+import { Card, CardFace, Sorte } from "../../../../components/Card";
 import Stack from "../../../../components/Stack";
 import { NameTag } from "../../../../components/NameTag";
 import { playable } from "../../playable";
+import { ReactComponent as CA } from "../../../../images/CA.svg";
+import { ReactComponent as CE } from "../../../../images/CE.svg";
+import { ReactComponent as TR } from "../../../../images/TR.svg";
+import { ReactComponent as PI } from "../../../../images/PI.svg";
 
 export class HuitBoard extends React.Component {
   static propTypes = {
@@ -80,7 +84,9 @@ export class HuitBoard extends React.Component {
               </Button>
             </Card>
             {this.props.G.action.sorte !== "" && (
-              <Text>Sorte demandée: {this.props.G.action.sorte}</Text>
+              <Text>
+                Sorte demandée: <Sorte sorte={this.props.G.action.sorte} />
+              </Text>
             )}
             {this.props.G.action.pickup !== 0 && (
               <Text>+{this.props.G.action.pickup}</Text>
@@ -100,41 +106,51 @@ export class HuitBoard extends React.Component {
               },
             }}
           >
-            <Button variant="cardValue">{this.props.G.stack[0]}</Button>
+            <Button variant="cardValue">
+              <CardFace a={this.props.G.stack[0]} />
+            </Button>
           </Card>
-          <Stack as="ol" spacing={2}>
-            {this.props.gameMetadata.map(
-              (key) =>
-                key["id"].toString() !== this.props.playerID && (
-                  <NameTag key={key} {...this.props} player={key} />
-                )
-            )}
+          <Stack spacing={3}>
+            {this.props.gameMetadata.map((key) => (
+              <Box>
+                <NameTag key={key} {...this.props} player={key} />
+              </Box>
+            ))}
           </Stack>
         </Box>
 
         <Stack p={3} spacing={3}>
-          <Container sx={{ display: "flex" }}>
+          <Stack direction="row" sx={{ alignItems: "stretch" }}>
             <NameTag
               {...this.props}
               player={this.props.gameMetadata[this.props.playerID]}
+              direction="row-reverse"
             >
               {" "}
               (Vous)
             </NameTag>
             {this.props.G.action.skip && this.props.isActive && (
-              <Button variant="primary" onClick={() => this.skip()}>
+              <Button variant="action" onClick={() => this.skip()}>
                 Passe ton tour!
               </Button>
             )}
             {this.props.G.action.change && this.props.isActive && (
               <Stack spacing={3} direction="row">
-                <Button onClick={() => this.changeSorte("PI")}>PI</Button>
-                <Button onClick={() => this.changeSorte("CE")}>CE</Button>
-                <Button onClick={() => this.changeSorte("CA")}>CA</Button>
-                <Button onClick={() => this.changeSorte("TR")}>TR</Button>
+                <Button variant="change" onClick={() => this.changeSorte("PI")}>
+                  <PI />
+                </Button>
+                <Button variant="change" onClick={() => this.changeSorte("CE")}>
+                  <CE />
+                </Button>
+                <Button variant="change" onClick={() => this.changeSorte("CA")}>
+                  <CA />
+                </Button>
+                <Button variant="change" onClick={() => this.changeSorte("TR")}>
+                  <TR />
+                </Button>
               </Stack>
             )}
-          </Container>
+          </Stack>
 
           <Container sx={{ display: "flex" }}>
             {hand.map((key, i) => (
@@ -165,12 +181,14 @@ export class HuitBoard extends React.Component {
                     display: "flex",
                   }}
                 >
-                  {key}
+                  <CardFace a={key} />
                 </Button>
               </Card>
             ))}
           </Container>
         </Stack>
+        <Text as="pre">CTX: {JSON.stringify(this.props.ctx)}</Text>
+        <Text as="pre">G: {JSON.stringify(this.props.G)}</Text>
       </Container>
     );
   }

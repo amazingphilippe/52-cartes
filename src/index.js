@@ -5,6 +5,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { IntlProvider } from "react-intl";
 import "./typical/radnika/ical.css";
+import "./typical/lemurmure/ical.css";
 
 ReactDOM.render(
   <React.StrictMode>
