@@ -29,7 +29,7 @@ class LobbyLoginForm extends React.Component {
 
   render() {
     return (
-      <Stack spacing={3} sx={{ bg: "gray.100", p: 3 }} align="flex-start">
+      <Stack spacing={3} align="flex-start">
         <Heading variant="h2">Joueur</Heading>
         <Label>
           <p>Entrez un nom</p>
@@ -50,7 +50,7 @@ class LobbyLoginForm extends React.Component {
             onKeyPress={this.onKeyPress}
           />
         </Label>
-        <Stack direction="row" align="center" spacing={3}>
+        <Stack direction="column" align="flex-start" spacing={3}>
           <Button
             type="submit"
             variant="primary"

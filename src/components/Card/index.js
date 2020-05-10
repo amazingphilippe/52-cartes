@@ -42,7 +42,14 @@ export const CardFace = (props) => {
   const carte = { valeur: props.a.slice(0, 1), sorte: props.a.slice(1, 3) };
   return (
     <Flex p={2} sx={{ width: "100%", alignItems: "baseline" }}>
-      <Box sx={{ fontFamily: "murmure", fontSize: 36, pr: 1 }}>
+      <Box
+        sx={{
+          fontFamily: "murmure",
+          fontSize: 36,
+          mr: 1,
+          color: (carte.sorte === "CA" || carte.sorte === "CE") && "red.main",
+        }}
+      >
         {carte.valeur !== "X" &&
           carte.valeur !== "Y" &&
           carte.valeur !== "0" &&
@@ -50,7 +57,7 @@ export const CardFace = (props) => {
         {carte.valeur === "0" && "10"}
         {(carte.valeur === "X" || carte.valeur === "Y") && "Joker"}
       </Box>
-      <Box sx={{ width: "25px" }}>
+      <Box sx={{ height: "25px" }}>
         {carte.sorte === "CA" && <CA />}
         {carte.sorte === "CE" && <CE />}
         {carte.sorte === "PI" && <PI />}
@@ -62,7 +69,15 @@ export const CardFace = (props) => {
 
 export const Sorte = (props) => {
   return (
-    <Box sx={{ display: "inline-flex", width: "20px", height: "20px", ml: 1 }}>
+    <Box
+      sx={{
+        display: "inline-flex",
+        width: "20px",
+        height: "20px",
+        ml: 1,
+        ...props.sx,
+      }}
+    >
       {props.sorte === "CA" && <CA />}
       {props.sorte === "CE" && <CE />}
       {props.sorte === "PI" && <PI />}

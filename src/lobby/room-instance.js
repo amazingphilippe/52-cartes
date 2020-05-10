@@ -110,7 +110,7 @@ class LobbyRoomInstance extends React.Component {
       return;
     }
     // allow spectating
-    return this._createButtonSpectate(inst);
+    // return this._createButtonSpectate(inst);
   };
 
   render() {
@@ -122,10 +122,12 @@ class LobbyRoomInstance extends React.Component {
     return (
       <Stack
         id={`table-${room.gameID}`}
-        sx={{ bg: "gray.100", p: 3 }}
+        sx={{ bg: "gray.200", p: 3 }}
         spacing={3}
       >
-        <Heading>{room.gameID}</Heading>
+        <Heading variant="h3" as="h3">
+          {room.gameID}
+        </Heading>
         <Stack direction="row" spacing={3}>
           <Text
             sx={{
@@ -158,9 +160,6 @@ class LobbyRoomInstance extends React.Component {
                   sx={{
                     bg: "white",
                     mb: 3,
-                    "&:active": {
-                      boxShadow: "none",
-                    },
                     ...(this.props.playerName === player.name && {
                       boxShadow: (theme) => theme.shadows.you,
                     }),
@@ -171,7 +170,14 @@ class LobbyRoomInstance extends React.Component {
               ) : (
                 <Box
                   key={key}
-                  sx={{ height: "40px", width: "40px", bg: "gray.200", mb: 3 }}
+                  sx={{
+                    height: "40px",
+                    width: "40px",
+                    bg: "purple.200",
+
+                    border: (theme) => `2px dashed ${theme.colors.purple[400]}`,
+                    mb: 3,
+                  }}
                 ></Box>
               );
             })}

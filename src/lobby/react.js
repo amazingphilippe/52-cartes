@@ -271,7 +271,10 @@ class Lobby extends React.Component {
         <Grid
           gap={3}
           columns={[10]}
-          sx={{ p: 3, ...(this.state.phase === "play" && { display: "none" }) }}
+          sx={{
+            p: 3,
+            ...(this.state.phase === "play" && { display: "none" }),
+          }}
         >
           <Heading
             as="h1"
@@ -288,49 +291,66 @@ class Lobby extends React.Component {
               gridColumn: ["1 / span 10", "1 / span 4", "1 / span 3"],
             }}
           >
-            <Box>
+            <Container variant="stitchBox">
               <LobbyLoginForm
                 key={playerName}
                 playerName={playerName}
                 onEnter={this._enterLobby}
               />
-            </Box>
+            </Container>
 
-            <Box>
+            <Container variant="stitchBox">
               <LobbyCreateRoomForm
                 games={gameComponents}
                 createGame={this._createRoom}
               />
-            </Box>
+            </Container>
+            <Container
+              variant="stitchBox"
+              sx={{
+                gridColumn: "span 10",
+                ...(this.state.phase !== "play"
+                  ? { visibility: "visible" }
+                  : { visibility: "hidden" }),
+              }}
+              id="lobby-exit"
+            >
+              <Button variant="danger" onClick={this._exitLobby}>
+                Quitter le lobby
+              </Button>
+            </Container>
           </Stack>
-          <Stack
+          <Container
+            variant="stitchBox"
             sx={{
-              ...(this.state.phase !== "list" && { display: "none" }),
               gridColumn: ["1 / span 10", "5 / span 6", "4 / span 7"],
             }}
           >
-            <Heading variant="h2" className="phase-title">
-              Tables
-            </Heading>
-            <Stack spacing={3} id="instances">
-              {this.renderRooms(this.connection.rooms, playerName)}
-              <span className="error-msg">{errorMsg}</span>
+            <Stack>
+              <Heading variant="h2" className="phase-title">
+                Tables
+              </Heading>
+              <Stack
+                sx={{
+                  ...(this.state.phase !== "list" && { display: "none" }),
+                }}
+                spacing={3}
+                id="instances"
+              >
+                {this.renderRooms(this.connection.rooms, playerName)}
+                <span className="error-msg">{errorMsg}</span>
+              </Stack>
+              <Box
+                sx={{
+                  ...(this.state.phase === "list" && { display: "none" }),
+                  fontFamily: "body",
+                  fontSize: "text",
+                }}
+              >
+                Choisissez un nom pour voir les tables disponibles.
+              </Box>
             </Stack>
-          </Stack>
-
-          <Box
-            sx={{
-              gridColumn: "span 10",
-              ...(this.state.phase !== "play"
-                ? { visibility: "visible" }
-                : { visibility: "hidden" }),
-            }}
-            id="lobby-exit"
-          >
-            <Button variant="danger" onClick={this._exitLobby}>
-              Quitter le lobby
-            </Button>
-          </Box>
+          </Container>
         </Grid>
         {runningGame && (
           <Grid
@@ -341,7 +361,10 @@ class Lobby extends React.Component {
               ...(this.state.phase !== "play" && { display: "none" }),
             }}
           >
-            <Container variant="menu" sx={{ gridColumn: "1 / span 10" }}>
+            <Container
+              variant="menu"
+              sx={{ gridColumn: "1 / span 10", height: "min-content" }}
+            >
               <Button variant="danger" onClick={this._exitRoom}>
                 Quitter la partie
               </Button>

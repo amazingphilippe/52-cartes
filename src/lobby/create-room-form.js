@@ -63,7 +63,7 @@ class LobbyCreateRoomForm extends React.Component {
 
   render() {
     return (
-      <Stack spacing={3} bg="gray.100" p={3} align="flex-start">
+      <Stack spacing={3} align="flex-start">
         <Heading variant="h2">Nouvelle table</Heading>
         <Label>
           <p>Jeu</p>

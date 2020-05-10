@@ -43,6 +43,8 @@ const PlayCard = (G, ctx, pos) => {
   actionCard(G, ctx, ...card);
   G.action.sorte = "";
 
+  G.players[ctx.playerID].pickup = 0;
+
   // If the card playeed is not a sort-changing card
   const valuePlayed = card[0].slice(0, 1);
 
@@ -96,7 +98,7 @@ const Shuffle = (G, ctx) => {
 const distributeCards = (G, ctx) => {
   let card;
   for (let i = 0; i < Object.entries(G.players).length; i++) {
-    card = G.deck.splice(-2);
+    card = G.deck.splice(-8);
     G.players[i].hand = [...card];
     updateHands(G, i);
   }

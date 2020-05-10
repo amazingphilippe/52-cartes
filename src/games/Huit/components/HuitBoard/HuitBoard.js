@@ -52,15 +52,8 @@ export class HuitBoard extends React.Component {
     const stackDepth = Math.floor(this.props.G.stack.length / 5);
 
     return (
-      <Container>
-        <Box
-          p={3}
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-          }}
-        >
+      <Container sx={{ display: "flex", flexWrap: ["wrap", "nowrap"] }}>
+        <Stack p={3} spacing={3} sx={{ flexGrow: "1" }}>
           <Stack spacing={3} direction="row">
             <Card
               styles={{
@@ -69,7 +62,9 @@ export class HuitBoard extends React.Component {
                   let shadow = "";
                   for (let i = 0; i < deckDepth; i++) {
                     shadow += `${i * 2}px ${i * 2}px 0 0 ${
-                      i % 2 === 0 ? theme.colors.gray[300] : "white"
+                      i % 2 === 0
+                        ? theme.colors.gray[400]
+                        : theme.colors.gray[200]
                     },`;
                   }
                   return shadow.slice(0, -1);
@@ -83,43 +78,44 @@ export class HuitBoard extends React.Component {
                 Pige
               </Button>
             </Card>
+            <Card
+              styles={{
+                width: "90px",
+                boxShadow: (theme) => {
+                  let shadow = "";
+                  for (let i = 0; i < stackDepth; i++) {
+                    shadow += `${i * 2}px ${i * 2}px 0 0 ${
+                      i % 2 === 0
+                        ? theme.colors.gray[200]
+                        : theme.colors.gray[400]
+                    },`;
+                  }
+                  return shadow.slice(0, -1);
+                },
+              }}
+            >
+              <Button variant="cardValue">
+                <CardFace a={this.props.G.stack[0]} />
+              </Button>
+            </Card>
             {this.props.G.action.sorte !== "" && (
-              <Text>
-                Sorte demandée: <Sorte sorte={this.props.G.action.sorte} />
+              <Text
+                variant="button"
+                sx={{
+                  bg: "gray.100",
+                  fontSize: "21px",
+                }}
+              >
+                Demandé&thinsp;: <Sorte sorte={this.props.G.action.sorte} />
               </Text>
             )}
             {this.props.G.action.pickup !== 0 && (
-              <Text>+{this.props.G.action.pickup}</Text>
+              <Text sx={{ fontSize: "21px" }}>
+                +{this.props.G.action.pickup}
+              </Text>
             )}
           </Stack>
-          <Card
-            styles={{
-              width: "90px",
-              boxShadow: (theme) => {
-                let shadow = "";
-                for (let i = 0; i < stackDepth; i++) {
-                  shadow += `${i * 2}px ${i * 2}px 0 0 ${
-                    i % 2 === 0 ? theme.colors.gray[300] : "white"
-                  },`;
-                }
-                return shadow.slice(0, -1);
-              },
-            }}
-          >
-            <Button variant="cardValue">
-              <CardFace a={this.props.G.stack[0]} />
-            </Button>
-          </Card>
-          <Stack spacing={3}>
-            {this.props.gameMetadata.map((key) => (
-              <Box>
-                <NameTag key={key} {...this.props} player={key} />
-              </Box>
-            ))}
-          </Stack>
-        </Box>
 
-        <Stack p={3} spacing={3}>
           <Stack direction="row" sx={{ alignItems: "stretch" }}>
             <NameTag
               {...this.props}
@@ -152,7 +148,7 @@ export class HuitBoard extends React.Component {
             )}
           </Stack>
 
-          <Container sx={{ display: "flex" }}>
+          <Container sx={{ display: "flex", flexWrap: ["wrap", "nowrap"] }}>
             {hand.map((key, i) => (
               <Card
                 className="card"
@@ -161,8 +157,10 @@ export class HuitBoard extends React.Component {
                   width: "90px",
                   transition: "0.2s",
                   flex: "0 1 auto",
+                  mr: [3, 0],
+                  mb: [3, 0],
                   "&:not(:first-child)": {
-                    ml: -3,
+                    ml: [0, -3],
                   },
                   "&:hover": {
                     transform: "translateY(-16px)",
@@ -187,8 +185,41 @@ export class HuitBoard extends React.Component {
             ))}
           </Container>
         </Stack>
-        <Text as="pre">CTX: {JSON.stringify(this.props.ctx)}</Text>
-        <Text as="pre">G: {JSON.stringify(this.props.G)}</Text>
+
+        <Box
+          p={3}
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+          }}
+        >
+          <Stack
+            spacing={3}
+            sx={{
+              flexDirection: ["row", "column"],
+              flexWrap: ["wrap", "nowrap"],
+            }}
+          >
+            {this.props.gameMetadata.map((key) => (
+              <Box>
+                <NameTag
+                  key={key}
+                  {...this.props}
+                  player={key}
+                  sx={{ mr: [3, 0] }}
+                />
+              </Box>
+            ))}
+          </Stack>
+        </Box>
+
+        <Text as="pre" sx={{ display: "none" }}>
+          CTX: {JSON.stringify(this.props.ctx)}
+        </Text>
+        <Text as="pre" sx={{ display: "none" }}>
+          G: {JSON.stringify(this.props.G)}
+        </Text>
       </Container>
     );
   }

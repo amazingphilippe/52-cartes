@@ -6,6 +6,7 @@ import * as serviceWorker from "./serviceWorker";
 import { IntlProvider } from "react-intl";
 import "./typical/radnika/ical.css";
 import "./typical/lemurmure/ical.css";
+import "./typical/sportingGrotesque/ical.css";
 
 ReactDOM.render(
   <React.StrictMode>

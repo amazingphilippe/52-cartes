@@ -39,7 +39,7 @@ const input = {
 export default {
   fonts: {
     body: "'Radnika', sans-serif",
-    heading: "'Radnika', sans-serif",
+    heading: "'Sporting Grotesque', sans-serif",
     murmure: "Le Murmure",
   },
   fontWeights: {
@@ -52,7 +52,7 @@ export default {
   },
   fontSizes: {
     text: 18,
-    heading: 27,
+    heading: 21,
   },
   colors: {
     text: "#000",
@@ -84,6 +84,15 @@ export default {
     },
     blue: {
       main: "#91A6FF",
+      900: "#17182B",
+      800: "#353860",
+      700: "#535B95",
+      600: "#717FCA",
+      500: "#91A6FF", //Main
+      400: "#9DB4FF",
+      300: "#AFC4FF",
+      200: "#C6D7FF",
+      100: "#E3EDFF",
     },
     gray: {
       100: "#E8E8E8",
@@ -96,7 +105,21 @@ export default {
       800: "#434343",
       900: "#2B2B2B",
     },
+    alphaBlack: {
+      0: "#00000000",
+      10: "#0000002B",
+      20: "#00000043",
+      30: "#0000005A",
+      40: "#00000072",
+      50: "#00000089",
+      60: "#000000A1",
+      70: "#000000B9",
+      80: "#000000D0",
+      90: "#000000E8",
+      100: "#000000FF",
+    },
     teal: {
+      main: "#297373",
       900: "#061214",
       800: "#113135",
       700: "#1C5254",
@@ -106,6 +129,18 @@ export default {
       300: "#77B8B6",
       200: "#94CCC9",
       100: "#B4DDDB",
+    },
+    purple: {
+      main: "#442B48",
+      900: "#0D070D",
+      800: "#2A192B",
+      700: "#442B48", // main
+      600: "#5F4663",
+      500: "#7A627E",
+      400: "#947F98",
+      300: "#AE9CB2",
+      200: "#C7BACA",
+      100: "#E0D9E2",
     },
   },
   borders: {
@@ -119,8 +154,9 @@ export default {
   shadows: {
     focus: (theme) => `0 0 0 4px ${theme.colors.focus}`,
     you: (theme) => `0 0 0 4px ${theme.colors.blue.main}`,
-    elevate: (theme) => `8px 6px 0 0 ${theme.colors.gray[100]}`,
-    inner: () => "inset 0 0 0 4px rgba(0,0,0,0.5)",
+    elevate: (theme) => `8px 6px 0 0 ${theme.colors.alphaBlack[10]}`,
+    action: (theme) => `0 0 0 4px ${theme.colors.alphaBlack[70]}`,
+    inner: (theme) => `inset 0 0 0 4px ${theme.colors.alphaBlack[50]}`,
   },
   sizes: {
     full: "100%",
@@ -136,9 +172,17 @@ export default {
     },
     h2: {
       fontFamily: "heading",
-      fontSize: 27,
+      fontSize: 21,
       lineHeight: 1.15,
       fontWeight: "heading",
+      color: "text",
+      my: 0,
+    },
+    h3: {
+      fontFamily: "heading",
+      fontSize: 18,
+      lineHeight: 1.15,
+      fontWeight: "bold",
       color: "text",
       my: 0,
     },
@@ -152,6 +196,10 @@ export default {
       ...buttons,
       display: "flex",
       alignItems: "center",
+      cursor: "inherit",
+      "&:active": {
+        boxShadow: "none",
+      },
     },
   },
   forms: {
@@ -172,11 +220,11 @@ export default {
   buttons: {
     primary: {
       ...buttons,
-      color: "text",
-      fontWeight: "positive",
-      bg: "primary.main",
+      color: "white",
+      fontWeight: "negative",
+      bg: "purple.main",
       "&:hover": {
-        bg: "primary.500",
+        bg: "purple.800",
       },
     },
     danger: {
@@ -218,7 +266,8 @@ export default {
     },
     cardValue: {
       ...buttons,
-      display: "block",
+      display: "flex",
+      flexDirection: "column",
       pl: 0,
       pr: 0,
       color: "text",
@@ -236,12 +285,15 @@ export default {
     },
     action: {
       ...buttons,
-      color: "text",
-      bg: "primary.main",
+      color: "white",
+      fontWeight: "negative",
+      pl: 4,
+      pr: 4,
+      bg: "purple.main",
       borderRadius: "full",
       height: "auto",
       "&:hover": {
-        bg: "primary.500",
+        bg: "purple.800",
       },
     },
     change: {
@@ -268,6 +320,12 @@ export default {
     stack: {
       display: "flex",
       flexDirection: "column",
+    },
+    stitchBox: {
+      p: 3,
+      bg: "gray.100",
+      outline: "2px dashed silver",
+      outlineOffset: "-4px",
     },
     menu: {
       display: "flex",

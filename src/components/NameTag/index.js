@@ -34,6 +34,9 @@ export class NameTag extends React.Component {
             ...(parseInt(this.props.ctx.currentPlayer, 10) ===
               this.props.player["id"] && {
               boxShadow: (theme) => theme.shadows.you,
+              bg: "blue.700",
+              fontWeight: "negative",
+              color: "white",
             }),
           }}
         >
@@ -46,6 +49,11 @@ export class NameTag extends React.Component {
               justifyContent: "center",
               width: "35px",
               height: "35px",
+              ...(parseInt(this.props.ctx.currentPlayer, 10) ===
+                this.props.player["id"] && {
+                bg: "blue.200",
+                color: "text",
+              }),
             }}
           >
             {this.props.G.hands[this.props.player["id"]]}
