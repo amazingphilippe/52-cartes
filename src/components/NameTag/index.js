@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Flex, Button } from "theme-ui";
+import { Flex } from "theme-ui";
 import Stack from "../Stack";
 
 export class NameTag extends React.Component {
