@@ -93,3 +93,10 @@ https://facebook.github.io/create-react-app/docs/deployment
 
 This section has moved here:
 https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+## Run bgio server
+
+`node -r esm src/server.js`
+
+Use pm2 to let it run. pm2 config script in src. to start or restart server, use
+`start pm2_config.json` or `restart pm2_config.json`
